@@ -1,11 +1,14 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import Header from './components/Header.vue'
 
 const tabs = [
-  { name: '⭐ П Мир 2004783645268', current: true },
-  { name: 'В Visa 64549002745', current: false },
-  { name: 'В МИР 4657374960', current: false },
+  { name: '⭐ П Мир 2004783645268' },
+  { name: 'В Visa 64549002745' },
+  { name: 'В МИР 4657374960' },
 ]
+
+const currentTab = ref<number>(0);
 
 const transactions = [
   {
@@ -49,6 +52,12 @@ const transactions = [
     merchantID: "071000047543"
   },
 ]
+
+function switchTab(tab: { name: string, current: boolean }) {
+  tabs.forEach((t) => {
+    tab.current = t === tab;
+  })
+}
 </script>
 
 <template>
@@ -88,15 +97,15 @@ const transactions = [
 
         <div class="sm:hidden">
           <select class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-black ring-1 ring-inset ring-gray-300 sm:text-sm sm:leading-6">
-            <option v-for="tab in tabs" :key="tab.name" :selected="tab.current">{{ tab.name }}</option>
+            <option v-for="(tab, index) in tabs" :key="tab.name" :selected="index === currentTab">{{ tab.name }}</option>
           </select>
         </div>
 
         <nav class="hidden mt-1 sm:flex" aria-label="Tabs">
-          <a v-for="tab in tabs" :key="tab.name" href="#" :class="[tab.current ? 'border-black text-black font-bold' : 'border-b-[3px] border-[#D4D4D4] text-[#B3B3B3]', 'flex border-b-[3px] py-[10px] px-[25px] text-base max-w-[250px]']">{{ tab.name }}</a>
+          <a v-for="(tab, index) in tabs" :key="tab.name" href="#" :class="[index === currentTab ? 'border-black text-black font-bold' : 'border-b-[3px] border-[#D4D4D4] text-[#B3B3B3]', 'flex border-b-[3px] py-[10px] px-[25px] text-base max-w-[250px]']" @click="currentTab = index">{{ tab.name }}</a>
         </nav>
 
-        <span class="mt-8 block text-base font-bold text-black">EAN 2004783645268</span>
+        <span class="mt-8 block text-base font-bold text-black">{{ tabs[currentTab].name }}</span>
         <span class="mt-1 block text-base text-black">Пластиковая Мир - 05/2024</span>
 
         <div class="mt-2 w-[112px] h-[32px] bg-[#FFCD29] flex items-center justify-center border-4 rounded border-[#CCA421]">Основная</div>
