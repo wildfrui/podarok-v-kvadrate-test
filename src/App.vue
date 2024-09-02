@@ -102,7 +102,7 @@ function switchTab(tab: { name: string, current: boolean }) {
         </div>
 
         <nav class="hidden mt-1 sm:flex" aria-label="Tabs">
-          <a v-for="(tab, index) in tabs" :key="tab.name" href="#" :class="[index === currentTab ? 'border-black text-black font-bold' : 'border-b-[3px] border-[#D4D4D4] text-[#B3B3B3]', 'flex border-b-[3px] py-[10px] px-[25px] text-base max-w-[250px]']" @click="currentTab = index">{{ tab.name }}</a>
+          <button v-for="(tab, index) in tabs" :key="tab.name" :class="[index === currentTab ? 'border-black text-black font-bold' : 'border-b-[3px] border-[#D4D4D4] text-[#B3B3B3]', 'flex border-b-[3px] py-[10px] px-[25px] text-base max-w-[250px]']" @click="currentTab = index">{{ tab.name }}</button>
         </nav>
 
         <span class="mt-8 block text-base font-bold text-black">{{ tabs[currentTab].name }}</span>
